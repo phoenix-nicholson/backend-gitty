@@ -38,7 +38,7 @@ describe('backend-gitty routes', () => {
 
     await agent.get('/login/callback');
 
-    const res = await agent.post('/api/v1/posts/create').send({ text: 'post' });
+    const res = await agent.post('/api/v1/posts').send({ text: 'post' });
 
     expect(res.body).toEqual({
       id: expect.any(String),
