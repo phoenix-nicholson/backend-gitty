@@ -25,13 +25,6 @@ describe('backend-gitty routes', () => {
       .get('/api/v1/github/login/callback?code=42')
       .redirects(1);
 
-    expect(req.body).toEqual({
-      id: expect.any(String),
-      username: 'miklo',
-      email: 'miklo@e.com',
-      avatar: expect.any(String),
-      iat: expect.any(String),
-      exp: expect.any(String),
-    });
+    expect(req.redirects[0]).toEqual(expect.stringContaining('/api/v1/posts'));
   });
 });
