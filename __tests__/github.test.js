@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const GithubUser = require('../lib/models/GithubUser');
 jest.mock('../lib/utils/github');
 
 describe('backend-gitty routes', () => {
@@ -27,5 +28,16 @@ describe('backend-gitty routes', () => {
       .redirects(1);
 
     expect(req.redirects[0]).toEqual(expect.stringContaining('/api/v1/posts'));
+  });
+
+  it('should be able to sign out a user', async () => {
+    await GithubUser.insert({
+      login: 'fake_github_user',
+      avatar_url: 'https://www.placecage.com/gif/300/300',
+      email: 'not-real@example.com',
+    });
+
+    const res = await request(app).delete('/api/v1/github/sessions');
+    expect(res.body).toEqual({ message: 'Signed out successfully' });
   });
 });
