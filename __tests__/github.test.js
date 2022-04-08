@@ -33,7 +33,7 @@ describe('backend-gitty routes', () => {
   it('should be able to sign out a user', async () => {
     await GithubUser.insert({
       username: 'fake_github_user',
-      avatar_url: 'https://www.placecage.com/gif/300/300',
+      avatar: 'https://www.placecage.com/gif/300/300',
       email: 'not-real@example.com',
     });
 
